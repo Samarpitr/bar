@@ -1,2 +1,2 @@
 poetry install
-poetry run ./manage.py collectstatic
+poetry run ./manage.py collectstatic  --noinput 
