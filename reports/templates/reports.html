@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container"></div>
+    <h1>Bar Association Financial Report</h1>
+    <div class="year-selector">
+        <label for="report_of">Report of:</label>
+        <select id="report_of" name="report_of">
+            <option value="Earning">Earnings</option>
+            <option value="Expense">Expenses</option>
+            <!-- Add more years as needed -->
+        </select>
+        <label for="year">Select Year:</label>
+        <select id="year" name="year">
+            {% for year in years %}
+            <option value="{{year}}">{{year}}</option>
+            {% endfor %}
+
+        </select>
+
+        <button id="generateReport" onclick="generateReport()">Generate Report</button>
+    </div>
+    <!-- <div class="tabs"></div>
+        <button class="tablinks" onclick="openTab(event, 'Earnings')">Earnings</button>
+        <button class="tablinks" onclick="openTab(event, 'Expenses')">Expenses</button>
+    </div> -->
+    <div id="reportTable" class="tabcontent">
+        <h2 id="reportTitle"></h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="reportData">
+                <!-- Report data will be populated here -->
+            </tbody>
+        </table>
+        <div class="pagination" id="reportPagination">
+            <!-- Pagination will be populated here -->
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        margin: 20px auto;
+        max-width: 800px;
+    }
+    .year-selector {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+    .year-selector label {
+        margin-right: 10px;
+        font-weight: bold;
+    }
+    .year-selector select {
+        padding: 5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border-color 0.3s;
+    }
+    .year-selector select:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+    .year-selector button {
+        margin-left: 10px;
+        padding: 5px 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+    .year-selector button:hover {
+        background-color: #45a049;
+    }
+    .tabs {
+        overflow: hidden;
+        border-bottom: 1px solid #ccc;
+    }
+    .tabs button {
+        background-color: #ccc;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+    .tabs button:hover {
+        background-color:  #4CAF50;
+    }
+    .tabs button.active {
+        background-color:  #4CAF50;
+    }
+    .tabcontent {
+        display: none;
+        padding: 20px;
+        border: 5px solid #ccc;
+        border-top: none;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table th, .table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    .table th {
+        background-color: #f2f2f2;
+        text-align: left;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+    }
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+    }
+</style>
+
+<script>
+    let currentTab = 'Earnings';
+
+    function openTab(evt, tabName) {
+        currentTab = tabName;
+        var tablinks = document.getElementsByClassName("tablinks");
+        for (var i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        evt.currentTarget.className += " active";
+    }
+
+    function generateReport() {
+        var year = document.getElementById("year").value;
+        var report_of = document.getElementById("report_of").value;
+
+        fetch(`records?year=${year}?report_of=${report_of}?page=1`)
+            .then(response => response.json())
+            .then(data => {
+                var reportData = currentTab === 'Earnings' ? data.earnings : data.expenses;
+                populateTable('reportData', reportData);
+                document.getElementById('reportTitle').innerText = currentTab;
+                document.getElementById('reportTable').style.display = 'block';
+                // Handle pagination if needed
+            })
+            .catch(error => console.error('Error fetching report data:', error));
+    }
+
+    function populateTable(tableId, data) {
+        var tableBody = document.getElementById(tableId);
+        tableBody.innerHTML = '';
+        data.forEach((item, index) => {
+            var row = `<tr>
+                <td>${index + 1}</td>
+                <td>${item.date}</td>
+                <td>${item.description}</td>
+                <td>${item.amount}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // Open the default tab
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector(".tablinks").click();
+    });
+</script>
+
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="service-container">
+    {% for service in services %}
+        <div class="service-box">
+            <img src="/media/{{ service.logo }}" alt="{{ service.name }} Logo" class="service-logo">
+            <a href="{% url 'service_detail' service.id %}" class="service-name">{{ service.name }}</a>
+        </div>
+    {% endfor %}
+
+</div>
+<style>
+    .service-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .service-box {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ccc;
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+    .service-box:hover {
+        transform: scale(1.05);
+    }
+    .service-logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+    }
+    .service-name {
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+{% endblock content %}

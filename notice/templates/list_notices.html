@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        color: #212529;
+        margin: 0;
+        padding: 0;
+    }
+    h1 {
+        text-align: center;
+        color: #575757;
+        margin-top: 20px;
+    }
+    table {
+        width: 90%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
+    th {
+        background-color: #575757;
+        color: white;
+        text-align: left;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr:hover {
+        background-color: #ddd;
+    }
+    @media (max-width: 600px) {
+        table, th, td {
+            display: block;
+            width: 100%;
+        }
+        th, td {
+            box-sizing: border-box;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        tr {
+            margin-bottom: 15px;
+        }
+    }
+</style>
+<h1>नोटिस की सूची</h1>
+<table>
+    <thead>
+        <tr>
+            <th>क्रमांक</th>
+            <th>Title</th>
+            <th>Uploaded At</th>
+            <th>Download Link</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for notice in notices %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ notice.title }}</td>
+            <td>{{ notice.created_at }}</td>
+            <td><a href="/media/{{ notice.file }}" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; word-wrap: break-word;">
+                <span style="color: blue; cursor: pointer;">{{ notice.title }}</span>
+            </a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

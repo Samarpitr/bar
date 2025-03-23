@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .tabs {
+            display: flex;
+            background-color: #333;
+            overflow: hidden;
+        }
+        .tabs a {
+            flex: 1;
+            padding: 14px 16px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .tabs a:hover {
+            background-color: #575757;
+        }
+        .tabs a.active {
+            background-color: #4CAF50;
+        }
+        .tab-content {
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            margin-top: -1px;
+        }
+    </style>
+
+<div class="tabs">
+    <a href="/" class="active">होम</a>
+    <a href="{% url 'list_services' %}">सेवाएं</a>
+    <a href="{% url 'list_notices' %}">सूचनाएं</a>
+    <a href="{% url 'list_advocates' %}">अधिवक्ता</a>
+    <a href="{% url 'reports' %}">प्रतिवेदन</a>
+    <a href="#complaint">शिकायत एवं सुझाव</a>
+    <a href="#contact-us">संपर्क करें</a>
+</div>
+<script>
+    document.querySelectorAll('.tabs a').forEach(tab => {
+        tab.addEventListener('click', function(event) {
+            event.preventDefault();
+            document.querySelectorAll('.tabs a').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            window.location.href = this.href;
+            
+        });
+    });
+</script>
+</head>
+<body>
+
+    {% block content %}{% endblock content %}
+</body>
+</html>

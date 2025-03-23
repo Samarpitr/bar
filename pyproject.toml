@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "bar"
+version = "0.1.0"
+description = "Bar association jansath management."
+authors = ["Samarpit Arya <samarpitr@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.1.6"
+pillow = "^11.1.0"
+gunicorn = "^23.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

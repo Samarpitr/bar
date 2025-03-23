@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section class="dashboard-section">
+        <div class="left-section">
+            <div class="tabs"></div>
+            <div class="image-slider">
+                {% for banner in banners %}
+                    <img src="media/{{banner.image}}" alt="{{ banner.title}}" style="width:100%; display:block;">
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="link-list" style="position: absolute; right: 0px; top: 50px; width: 35%; height: 500px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff; overflow: hidden;">
+            <h2>Notice Board</h2>
+            <ul style="list-style-type: none; padding: 0;"></ul>
+                {% for notice in notices %}
+                    <li style="margin-bottom: 10px;">   
+                        <a href="media/{{ notice.file }}" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; word-wrap: break-word;">
+                            {{ notice.updated_at }} - <span style="color: blue; cursor: pointer;">{{ notice.title }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="advocate-section" style="position: absolute; left: 0; top: 600px; width: 100%; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;">
+            <h2>कार्यकारणी सदस्यगण</h2>
+            <div class="advocate-box" style="display: flex; flex-wrap: wrap; gap: 20px;">
+            {% for member in members %}
+                <div class="advocate-card" style="width: 200px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f9f9f9; text-align: center;">
+                <img src="media/{{ member.advocate.profile_image }}" alt="{{ member.name }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                <h3>{{ member.advocate.name }}</h3>
+                <p>{{ member.role }} ({{member.session}})</p>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        .left-section {
+            position: absolute;
+            left: 0;
+            top: 50px;
+            width: 60%;
+            height: 500px; /* Fixed height */
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            overflow: hidden; /* Hide overflow */
+        }
+        .image-slider img {
+            border-radius: 10px;
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+    <script>
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.image-slider img');
+        images.forEach((img, index) => {
+            if (index !== 0) img.style.display = 'none';
+        });
+        setInterval(() => {
+            images[currentImageIndex].style.display = 'none';
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            images[currentImageIndex].style.display = 'block';
+        }, 3000);
+    </script>
+    <!-- <script>
+        document.querySelectorAll('.tabs a').forEach(tab => {
+            tab.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.querySelectorAll('.tabs a').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
+                this.classList.add('active');
+                document.querySelector(this.getAttribute('href')).style.display = 'block';
+            });
+        });
+    </script> -->
+    
+{% endblock content %}
