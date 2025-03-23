@@ -32,7 +32,7 @@ urlpatterns = [
     path('notice/', include('notice.urls')),
     path('services/', include('services.urls')),
     path('reports/', include('reports.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
