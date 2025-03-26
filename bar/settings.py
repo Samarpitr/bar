@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'notice',
     'services',
     'complaints',
-    'reports'
+    'reports',
+    'officer',
 ]
 
 MIDDLEWARE = [

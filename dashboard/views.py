@@ -3,6 +3,7 @@ from django.shortcuts import render
 from notice.models import Notice
 from .models import Banner
 from advocates.models import Advocate, AdvocateRole
+from officer.models import Officers
 from datetime import datetime
 
 def dashboard(request) -> HttpResponse:
@@ -10,5 +11,6 @@ def dashboard(request) -> HttpResponse:
     banners = Banner.objects.all()
     current_year = datetime.now().year
     members = AdvocateRole.objects.filter(appointed_on__year=current_year).order_by('appointed_on')
-    return render(request, 'dashboard.html', context={'notices': notices, 'banners': banners, 'members': members})
+    officers = Officers.objects.all().order_by('rank')
+    return render(request, 'dashboard.html', context={'notices': notices, 'banners': banners, 'members': members, 'officers': officers})
 

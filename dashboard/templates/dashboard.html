@@ -24,13 +24,38 @@
                 {% endfor %}
             </ul>
         </div>
+        <div class="officer-section" style="position: absolute; left: 0; top: 600px; width: 100%; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff; overflow: hidden;">
+            <h2>अधिकारीगण</h2>
+            <div class="officer-box" style="display: flex; gap: 20px; animation: scroll-horizontal 10s linear infinite;">
+            {% for officer in officers %}
+                <div class="officer-card" style="width: 200px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f9f9f9; text-align: center; flex-shrink: 0;">
+                <img src="media/{{ officer.image }}" alt="{{ officer.name }}" style="width: 150px; height: 150px; object-fit: contain; border-radius: 0%;">
+                <h3>{{ officer.name }}</h3>
+                <p>{{ officer.position }}</p>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
 
-        <div class="advocate-section" style="position: absolute; left: 0; top: 600px; width: 100%; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;">
+        <style>
+            @keyframes scroll-horizontal {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+            }
+            .officer-box:hover {
+            animation-play-state: paused;
+            }
+        </style>
+        <div class="advocate-section" style="position: absolute; left: 0; top: 1000px; width: 100%; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;">
             <h2>कार्यकारणी सदस्यगण</h2>
             <div class="advocate-box" style="display: flex; flex-wrap: wrap; gap: 20px;">
             {% for member in members %}
                 <div class="advocate-card" style="width: 200px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f9f9f9; text-align: center;">
-                <img src="media/{{ member.advocate.profile_image }}" alt="{{ member.name }}" style="width: 100px; height: 100px; object-fit: contain; border-radius: 0%;">
+                <img src="media/{{ member.advocate.profile_image }}" alt="{{ member.name }}" style="width: 150px; height: 150px; object-fit: contain; border-radius: 0%;">
                 <h3>{{ member.advocate.name }}</h3>
                 <p>{{ member.role }}</p>
                 </div>
