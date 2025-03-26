@@ -27,27 +27,37 @@
         <div class="officer-section" style="position: absolute; left: 0; top: 600px; width: 100%; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff; overflow: hidden;">
             <h2>अधिकारीगण</h2>
             <div class="officer-box" style="display: flex; gap: 20px; animation: scroll-horizontal 10s linear infinite;">
-            {% for officer in officers %}
+            <div class="officer-wrapper" style="display: flex; gap: 20px;">
+                {% for officer in officers %}
                 <div class="officer-card" style="width: 200px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f9f9f9; text-align: center; flex-shrink: 0;">
-                <img src="media/{{ officer.image }}" alt="{{ officer.name }}" style="width: 150px; height: 150px; object-fit: contain; border-radius: 0%;">
-                <h3>{{ officer.name }}</h3>
-                <p>{{ officer.position }}</p>
+                    <img src="media/{{ officer.image }}" alt="{{ officer.name }}" style="width: 150px; height: 150px; object-fit: contain; border-radius: 0%;">
+                    <h3>{{ officer.name }}</h3>
+                    <p>{{ officer.position }}</p>
                 </div>
-            {% endfor %}
+                {% endfor %}
+                {% for officer in officers %}
+                <div class="officer-card" style="width: 200px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f9f9f9; text-align: center; flex-shrink: 0;">
+                    <img src="media/{{ officer.image }}" alt="{{ officer.name }}" style="width: 150px; height: 150px; object-fit: contain; border-radius: 0%;">
+                    <h3>{{ officer.name }}</h3>
+                    <p>{{ officer.position }}</p>
+                </div>
+                {% endfor %}
+            </div>
             </div>
         </div>
-
         <style>
             @keyframes scroll-horizontal {
             0% {
                 transform: translateX(0);
             }
             100% {
-                transform: translateX(-100%);
+                transform: translateX(-50%);
             }
             }
-            .officer-box:hover {
-            animation-play-state: paused;
+            .officer-box {
+            display: flex;
+            animation: scroll-horizontal 20s linear infinite;
+            width: 200%;
             }
         </style>
         <div class="advocate-section" style="position: absolute; left: 0; top: 1000px; width: 100%; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;">
