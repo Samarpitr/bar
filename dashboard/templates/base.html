@@ -44,8 +44,8 @@
     <a href="{% url 'list_notices' %}">सूचनाएं</a>
     <a href="{% url 'list_advocates' %}">अधिवक्ता</a>
     <a href="{% url 'reports' %}">प्रतिवेदन</a>
-    <a href="#complaint">शिकायत एवं सुझाव</a>
-    <a href="#contact-us">संपर्क करें</a>
+    <a href="{% url 'complaint' %}">शिकायत एवं सुझाव</a>
+    <a href="{% url 'contact' %}">संपर्क करें</a>
 </div>
 <script>
     document.querySelectorAll('.tabs a').forEach(tab => {

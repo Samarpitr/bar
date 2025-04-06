@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'complaints',
     'reports',
     'officer',
+    'contact',
 ]
 
 MIDDLEWARE = [

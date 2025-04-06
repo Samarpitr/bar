@@ -32,6 +32,7 @@ urlpatterns = [
     path('notice/', include('notice.urls')),
     path('services/', include('services.urls')),
     path('reports/', include('reports.urls')),
+    path('contact/', include('contact.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
