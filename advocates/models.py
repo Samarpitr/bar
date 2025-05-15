@@ -26,7 +26,7 @@ class Advocate(models.Model):
     country = models.CharField(max_length=50, default=None, blank=True, null=True)
     zip = models.CharField(max_length=10, default=None, blank=True, null=True)
     firm = models.CharField(max_length=100, default=None, blank=True, null=True)
-    practicing_since = models.DateTimeField()
+    practicing_since = models.DateTimeField(auto_now_add=True)
     practice_areas = models.ManyToManyField(Area)
     registration_number = models.CharField(max_length=50, default=None, blank=True, null=True)
     aibe_number = models.CharField(max_length=50, default=None, blank=True, null=True)
